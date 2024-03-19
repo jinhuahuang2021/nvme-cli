@@ -1273,17 +1273,17 @@ struct __packed smart_log_add_item_12 {
 	uint8_t rsvd1;
 	union {
 		struct wear_level wear_level;  // 0xad
-		struct temp_since_born {       // 0xe7
+		struct __packed temp_since_born { // 0xe7
 			__le16 max;
 			__le16 min;
 			__le16 curr;
 		} temp_since_born;
-		struct power_consumption {  // 0xe8
+		struct __packed power_consumption {  // 0xe8
 			__le16 max;
 			__le16 min;
 			__le16 curr;
 		} power_consumption;
-		struct temp_since_power_on {  // 0xaf
+		struct __packed temp_since_power_on {  // 0xaf
 			__le16 max;
 			__le16 min;
 			__le16 curr;
@@ -1303,10 +1303,10 @@ struct __packed smart_log_add_item_10 {
 	uint8_t rsvd[2];
 };
 
-struct smart_log_add {
+struct __packed smart_log_add {
 	union {
 		union {
-			struct smart_log_add_v0 {
+			struct __packed smart_log_add_v0 {
 				struct smart_log_add_item_12 program_fail_count;
 				struct smart_log_add_item_12 erase_fail_count;
 				struct smart_log_add_item_12 wear_leveling_count;
@@ -1335,7 +1335,7 @@ struct smart_log_add {
 		};
 
 		union {
-			struct smart_log_add_v2 {
+			struct __packed smart_log_add_v2 {
 				struct smart_log_add_item_12 program_fail_count;
 				struct smart_log_add_item_12 erase_fail_count;
 				struct smart_log_add_item_12 wear_leveling_count;
@@ -1369,7 +1369,7 @@ struct smart_log_add {
 		};
 
 		union {
-			struct smart_log_add_v3 {
+			struct __packed smart_log_add_v3 {
 				struct smart_log_add_item_10 program_fail_count;
 				struct smart_log_add_item_10 erase_fail_count;
 				struct smart_log_add_item_10 wear_leveling_count;
@@ -1678,7 +1678,7 @@ struct latency_stats_bucket {
 
 struct __packed latency_stats {
 	union {
-		struct latency_stats_v2_0 {
+		struct __packed latency_stats_v2_0 {
 			uint32_t minor_version;
 			uint32_t major_version;
 			uint32_t bucket_read_data[32];
@@ -1695,9 +1695,9 @@ struct __packed latency_stats {
 
 struct __packed high_latency_log {
 	union {
-		struct high_latency_log_v1 {
+		struct __packed high_latency_log_v1 {
 			uint32_t version;
-			struct high_latency_log_entry {
+			struct __packed high_latency_log_entry {
 				uint64_t timestamp;  // ms
 				uint32_t latency;
 				uint32_t qid;
@@ -1723,12 +1723,12 @@ struct __packed high_latency_log {
 
 struct __packed performance_stats {
 	union {
-		struct performance_stats_v1 {
+		struct __packed performance_stats_v1 {
 			uint8_t version;
 			uint8_t rsvd[3];
-			struct performance_stats_timestamp {
+			struct __packed performance_stats_timestamp {
 				uint8_t timestamp[6];
-				struct performance_stats_entry {
+				struct __packed performance_stats_entry {
 					uint16_t read_iops;          // K IOPS
 					uint16_t read_bandwidth;     // MiB
 					uint32_t read_latency;       // us
@@ -1740,12 +1740,12 @@ struct __packed performance_stats {
 				} entries[3600];
 			} timestamps[24];
 		} v1;
-		struct performance_stats_v2 {
+		struct __packed performance_stats_v2 {
 			uint8_t version;
 			uint8_t rsvd[3];
-			struct performance_stats_timestamp_v2 {
+			struct __packed performance_stats_timestamp_v2 {
 				uint8_t timestamp[6];
-				struct performance_stats_entry_v2 {
+				struct __packed performance_stats_entry_v2 {
 					uint16_t read_iops;
 					uint16_t read_bandwidth;
 					uint16_t read_latency_avg;
